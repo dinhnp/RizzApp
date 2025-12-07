@@ -17,14 +17,18 @@ st.set_page_config(
 )
 
 # --- Custom CSS for Premium Dark Theme ---
+# --- Custom CSS for Premium Theme ---
 st.markdown("""
 <style>
     /* Import Google Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
     
     /* Global Styles */
     .stApp {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Outfit', sans-serif;
+        background: #0f0c29;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
     
     /* Hide Streamlit branding */
@@ -34,51 +38,51 @@ st.markdown("""
     
     /* Main container styling */
     .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        max-width: 800px;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        max-width: 850px;
     }
     
     /* Custom Header */
     .hero-title {
-        font-size: 2.8rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #ff6b9d 100%);
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(to right, #ff9966, #ff5e62);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
         margin-bottom: 0.5rem;
-        animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    @keyframes shimmer {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.8; }
+        letter-spacing: -1px;
+        text-shadow: 0 10px 30px rgba(255, 94, 98, 0.3);
     }
     
     .hero-subtitle {
-        font-size: 1.1rem;
-        color: #a0a0a0;
+        font-size: 1.2rem;
+        color: #e0e0e0;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         font-weight: 300;
+        opacity: 0.8;
     }
     
     /* Upload Area */
     .upload-container {
-        background: linear-gradient(145deg, rgba(255,107,157,0.1) 0%, rgba(196,69,105,0.1) 100%);
-        border: 2px dashed rgba(255,107,157,0.4);
-        border-radius: 20px;
-        padding: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 3rem 2rem;
         text-align: center;
-        transition: all 0.3s ease;
-        margin-bottom: 1.5rem;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-bottom: 2rem;
     }
     
     .upload-container:hover {
-        border-color: rgba(255,107,157,0.8);
-        background: linear-gradient(145deg, rgba(255,107,157,0.15) 0%, rgba(196,69,105,0.15) 100%);
+        border-color: #ff9966;
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
     
     /* Style the file uploader */
@@ -87,84 +91,41 @@ st.markdown("""
     }
     
     .stFileUploader label {
-        color: #e0e0e0 !important;
+        color: #fff !important;
+        font-size: 1.1rem;
     }
     
     /* Primary Button */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+        background: linear-gradient(90deg, #ff9966 0%, #ff5e62 100%);
         color: white;
         font-weight: 600;
-        font-size: 1.1rem;
-        padding: 0.8rem 2rem;
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
         border: none;
-        border-radius: 12px;
+        border-radius: 16px;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(255,107,157,0.3);
+        box-shadow: 0 10px 25px rgba(255, 94, 98, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(255,107,157,0.5);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(255, 94, 98, 0.6);
     }
     
     .stButton > button:active {
-        transform: translateY(0);
-    }
-    
-    /* Response Cards */
-    .response-card {
-        background: linear-gradient(145deg, rgba(40,40,50,0.9) 0%, rgba(30,30,40,0.9) 100%);
-        border: 1px solid rgba(255,107,157,0.2);
-        border-radius: 16px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-    
-    .response-card:hover {
-        border-color: rgba(255,107,157,0.5);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(255,107,157,0.15);
-    }
-    
-    .response-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    .response-number {
-        background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
-        color: white;
-        font-weight: 700;
-        font-size: 0.9rem;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-    }
-    
-    .response-text {
-        color: #e8e8e8;
-        font-size: 1.05rem;
-        line-height: 1.6;
-        margin-bottom: 0.8rem;
-    }
-    
-    .response-explanation {
-        color: #888;
-        font-size: 0.9rem;
-        font-style: italic;
-        padding-left: 1rem;
-        border-left: 2px solid rgba(255,107,157,0.4);
+        transform: translateY(1px);
     }
     
     /* Sidebar Styling */
     .css-1d391kg, [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, rgba(25,25,35,1) 0%, rgba(15,15,25,1) 100%);
+        background: rgba(15, 12, 41, 0.95);
+        backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255,255,255,0.05);
     }
     
     [data-testid="stSidebar"] .stSelectbox label,
@@ -175,10 +136,12 @@ st.markdown("""
     
     /* Sidebar Title */
     .sidebar-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: #ff6b9d;
-        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(to right, #ff9966, #ff5e62);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 2rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -186,101 +149,77 @@ st.markdown("""
     
     /* Style Selector Cards */
     .style-option {
-        background: rgba(255,107,157,0.1);
-        border: 1px solid rgba(255,107,157,0.2);
-        border-radius: 10px;
-        padding: 0.8rem;
-        margin-bottom: 0.5rem;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
         transition: all 0.2s ease;
     }
     
-    .style-option:hover {
-        background: rgba(255,107,157,0.2);
-        border-color: rgba(255,107,157,0.4);
-    }
-    
     /* Success/Info/Warning boxes */
-    .stSuccess {
-        background: linear-gradient(135deg, rgba(46,204,113,0.2) 0%, rgba(39,174,96,0.2) 100%);
-        border: 1px solid rgba(46,204,113,0.4);
-        border-radius: 12px;
-    }
-    
-    .stInfo {
-        background: linear-gradient(135deg, rgba(52,152,219,0.2) 0%, rgba(41,128,185,0.2) 100%);
-        border: 1px solid rgba(52,152,219,0.4);
-        border-radius: 12px;
-    }
-    
-    .stWarning {
-        background: linear-gradient(135deg, rgba(241,196,15,0.2) 0%, rgba(243,156,18,0.2) 100%);
-        border: 1px solid rgba(241,196,15,0.4);
-        border-radius: 12px;
-    }
-    
-    .stError {
-        background: linear-gradient(135deg, rgba(231,76,60,0.2) 0%, rgba(192,57,43,0.2) 100%);
-        border: 1px solid rgba(231,76,60,0.4);
-        border-radius: 12px;
+    .stSuccess, .stInfo, .stWarning, .stError {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        color: #fff;
     }
     
     /* Image styling */
     .stImage {
-        border-radius: 16px;
+        border-radius: 24px;
         overflow: hidden;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.1);
     }
     
     /* Spinner */
     .stSpinner > div {
-        border-color: #ff6b9d !important;
+        border-color: #ff9966 !important;
     }
     
     /* Footer */
     .footer-text {
         text-align: center;
-        color: #666;
-        font-size: 0.85rem;
-        margin-top: 3rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    .footer-text a {
-        color: #ff6b9d;
-        text-decoration: none;
+        color: rgba(255,255,255,0.4);
+        font-size: 0.9rem;
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
     }
     
     /* Radio buttons styling */
     .stRadio > div {
-        gap: 0.5rem;
+        gap: 0.8rem;
     }
     
     .stRadio > div > label {
-        background: rgba(255,107,157,0.1);
-        border: 1px solid rgba(255,107,157,0.2);
-        border-radius: 10px;
-        padding: 0.6rem 1rem;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 12px;
+        padding: 0.8rem 1.2rem;
         transition: all 0.2s ease;
     }
     
     .stRadio > div > label:hover {
-        background: rgba(255,107,157,0.2);
-        border-color: rgba(255,107,157,0.4);
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.2);
     }
     
     /* Selectbox styling */
     .stSelectbox > div > div {
-        background: rgba(40,40,50,0.8);
-        border: 1px solid rgba(255,107,157,0.3);
-        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        color: white;
     }
     
     /* Divider */
     .custom-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,107,157,0.5), transparent);
-        margin: 1.5rem 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        margin: 2rem 0;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -323,7 +262,7 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
 # --- Main Content ---
-st.markdown('<h1 class="hero-title">💘 AI Rizz Master</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="hero-title">💘 Rizz Master</h1>', unsafe_allow_html=True)
 st.markdown('<p class="hero-subtitle">Upload screenshot tin nhắn • Nhận gợi ý trả lời cực dính</p>', unsafe_allow_html=True)
 
 # File uploader with custom styling
@@ -340,7 +279,7 @@ if uploaded_file is not None:
     
     st.markdown("")  # Spacing
     
-    if st.button("✨ Gợi ý câu trả lời Rizz", use_container_width=True):
+    if st.button("✨ RIZZ ME UP! ✨", use_container_width=True):
         if not api_key:
             st.error("⚠️ Vui lòng thêm GEMINI_API_KEY vào file .env!")
         else:
@@ -355,14 +294,15 @@ if uploaded_file is not None:
                     
                     # Construct Prompt with JSON output
                     prompt = f"""
-                    Role: You are a Vietnamese dating expert and conversation analyst specializing in "Rizz" and Gen Z dating culture. You are highly skilled at reading social dynamics and crafting the perfect responses.
+                    Role: You are an expert dating coach and conversation analyst specializing in "Rizz" and Gen Z dating culture. You are highly skilled at reading social dynamics and crafting the perfect responses.
                     
                     Task: 
                     1. READ THE ENTIRE CONVERSATION in the screenshot carefully from top to bottom
-                    2. Identify who is the user (usually on the right/blue bubbles) and who is the partner (on the left)
-                    3. Understand the CONTEXT and FLOW of the conversation - what topics have been discussed, the tone, the energy
-                    4. Analyze the partner's personality, interests, and communication style based on their messages
-                    5. Note any hints, inside jokes, or opportunities that can be used in the reply
+                    2. DETECT THE LANGUAGE of the conversation (English or Vietnamese)
+                    3. Identify who is the user (usually on the right/blue bubbles) and who is the partner (on the left)
+                    4. Understand the CONTEXT and FLOW of the conversation - what topics have been discussed, the tone, the energy
+                    5. Analyze the partner's personality, interests, and communication style based on their messages
+                    6. Note any hints, inside jokes, or opportunities that can be used in the reply
                     
                     Context:
                     - User's Goal: {clean_target}
@@ -375,15 +315,19 @@ if uploaded_file is not None:
                     - Are tailored to the partner's apparent personality and interests
                     - Use the selected style ({clean_style}) effectively
                     
-                    Language Rule: Output ONLY in natural Vietnamese. Use slang (teencode, Gen Z terms) appropriately. Sound like a real person texting, not a robot.
+                    ⚠️ CRITICAL LANGUAGE RULE - THIS IS MANDATORY:
+                    - VIETNAMESE conversation = 100% Vietnamese output. EVERY SINGLE WORD must be in Vietnamese. Analysis in Vietnamese. Replies in Vietnamese. Explanations in Vietnamese. NO ENGLISH AT ALL.
+                    - ENGLISH conversation = 100% English output. Every word in English.
+                    - DO NOT mix languages. DO NOT write "The conversation is in Vietnamese" in English. Write it in Vietnamese: "Cuộc trò chuyện..."
+                    - Use natural slang and texting style that matches the conversation.
                     
                     IMPORTANT: You MUST respond in this EXACT JSON format only, no other text:
                     {{
-                        "analysis": "Tóm tắt ngắn gọn về cuộc trò chuyện: bao gồm chủ đề chính, tone/vibe của conversation, tính cách của đối phương, và cơ hội để rizz (2-3 câu)",
+                        "analysis": "Tóm tắt cuộc trò chuyện (VIẾT BẰNG NGÔN NGỮ CỦA CUỘC TRÒ CHUYỆN): chủ đề chính, vibe, tính cách đối phương, cơ hội rizz",
                         "options": [
-                            {{"reply": "Câu trả lời thực tế", "explanation": "Giải thích ngắn gọn tại sao câu này phù hợp với context"}},
-                            {{"reply": "Câu trả lời thực tế", "explanation": "Giải thích ngắn gọn tại sao câu này phù hợp với context"}},
-                            {{"reply": "Câu trả lời thực tế", "explanation": "Giải thích ngắn gọn tại sao câu này phù hợp với context"}}
+                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}},
+                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}},
+                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}}
                         ]
                     }}
                     """
@@ -403,12 +347,12 @@ if uploaded_file is not None:
                                 raise ValueError("No JSON found")
                             
                             # Render analysis
-                            analysis_html = f'''<div style="background: linear-gradient(135deg, rgba(255,107,157,0.15) 0%, rgba(196,69,105,0.15) 100%); border-left: 4px solid #ff6b9d; padding: 1rem 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.5rem;"><div style="color: #ff6b9d; font-weight: 600; margin-bottom: 0.3rem;">📊 Phân tích</div><div style="color: #e0e0e0; font-size: 1rem;">{data.get('analysis', '')}</div></div>'''
+                            analysis_html = f'''<div style="background: rgba(255,255,255,0.05); border-left: 4px solid #ff9966; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><div style="color: #ff9966; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem; letter-spacing: 0.5px; text-transform: uppercase;">📊 Phân tích tình huống</div><div style="color: #e0e0e0; font-size: 1.05rem; line-height: 1.6;">{data.get('analysis', '')}</div></div>'''
                             st.markdown(analysis_html, unsafe_allow_html=True)
                             
                             # Render each option as a card
-                            icons = ["💬", "💭", "💫"]
-                            colors = ["#ff6b9d", "#c44569", "#a03050"]
+                            icons = ["�", "�", "✨"]
+                            colors = ["#ff9966", "#ff5e62", "#ff9966"]
                             
                             for i, option in enumerate(data.get('options', [])):
                                 reply_text = option.get('reply', '')
@@ -416,7 +360,7 @@ if uploaded_file is not None:
                                 color = colors[i]
                                 icon = icons[i]
                                 
-                                card_html = f'''<div style="background: linear-gradient(145deg, rgba(40,40,50,0.95) 0%, rgba(30,30,40,0.95) 100%); border: 1px solid {color}40; border-radius: 16px; padding: 1.2rem 1.5rem; margin-bottom: 1rem; position: relative; overflow: hidden;"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, {color}, transparent);"></div><div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;"><span style="background: linear-gradient(135deg, {color} 0%, {color}cc 100%); color: white; font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.9rem; border-radius: 20px;">Option {i+1}</span><span style="font-size: 1.2rem;">{icon}</span></div><div style="color: #f5f5f5; font-size: 1.15rem; line-height: 1.6; margin-bottom: 0.8rem; padding: 0.8rem 1rem; background: rgba(255,107,157,0.08); border-radius: 10px; border-left: 3px solid {color};">"{reply_text}"</div><div style="color: #999; font-size: 0.9rem; font-style: italic; display: flex; align-items: flex-start; gap: 0.5rem;"><span style="color: {color};">💡</span>{explanation}</div></div>'''
+                                card_html = f'''<div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #ff9966, #ff5e62);"></div><div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;"><span style="background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%); color: white; font-weight: 700; font-size: 0.9rem; padding: 0.4rem 1rem; border-radius: 30px; box-shadow: 0 5px 15px rgba(255, 94, 98, 0.3);">Option {i+1}</span><span style="font-size: 1.4rem;">{icon}</span></div><div style="color: #fff; font-size: 1.25rem; line-height: 1.5; margin-bottom: 1rem; padding: 1rem 1.2rem; background: rgba(255,255,255,0.05); border-radius: 12px; border-left: 3px solid #ff9966; font-weight: 500;">"{reply_text}"</div><div style="color: rgba(255,255,255,0.6); font-size: 0.95rem; font-style: italic; display: flex; align-items: flex-start; gap: 0.6rem;"><span style="color: #ff9966;">💡</span>{explanation}</div></div>'''
                                 st.markdown(card_html, unsafe_allow_html=True)
                             
                             return True
@@ -441,8 +385,7 @@ if uploaded_file is not None:
                         print(f"Error with default model: {e}")
                         
                         if "404" in str(e) and "not found" in str(e):
-                            st.warning(f"⏳ Đang chuyển sang model khác...")
-                            
+                            # Silently switch to fallback model                            
                             # Get available models
                             available_models = []
                             try:
