@@ -86,6 +86,7 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
+        margin-top: -3rem;
         margin-bottom: 0.3rem;
         letter-spacing: -0.5px;
         animation: bounce 2s ease-in-out infinite;
@@ -178,7 +179,7 @@ st.markdown("""
         white-space: pre-wrap !important;
         text-align: center !important;
         color: #ddd !important;
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
         font-weight: 500 !important;
         line-height: 1.8 !important;
     }
@@ -486,18 +487,11 @@ st.markdown('<h1 class="hero-title" style="text-align: center;">💘 Rizz Me Up 
 st.markdown('<p class="hero-subtitle" style="text-align: center;">Rep là dính • thính là say/slay</p>', unsafe_allow_html=True)
 
 # --- Settings Row ---
-col1, col2 = st.columns([1, 1.5])
+st.markdown('<div style="text-align: center;"><b>🎯 Đối tượng mục tiêu</b></div>', unsafe_allow_html=True)
 
-with col1:
-    st.markdown("**🎭 Phong cách trả lời**")
-    style = st.selectbox(
-        "Chọn style",
-        ["Hài hước & Lầy lội 😂", "Lạnh lùng boy/girl 🧊", "Ngọt ngào 🍯", "Táo bạo 🔥"],
-        label_visibility="collapsed"
-    )
-
-with col2:
-    st.markdown("**🎯 Đối tượng mục tiêu**")
+# Center the radio buttons
+_, center_col, _ = st.columns(3)
+with center_col:
     target = st.radio(
         "Chọn đối tượng",
         ["👩 Tán Bạn Gái", "👨 Tán Bạn Trai"],
@@ -567,10 +561,9 @@ if st.session_state.uploaded_file_data is not None:
                     genai.configure(api_key=api_key)
                     
                     # Clean style and target for prompt
-                    clean_style = style.split(" ")[0] if " " in style else style
                     clean_target = target.split(" ")[-1] if " " in target else target
                     
-                    # Construct Prompt with JSON output
+                    # Construct Prompt with JSON output for ALL styles
                     prompt = f"""
                     Role: You are an expert dating coach and conversation analyst specializing in "Rizz" and Gen Z dating culture. You are highly skilled at reading social dynamics and crafting the perfect responses.
                     
@@ -584,34 +577,53 @@ if st.session_state.uploaded_file_data is not None:
                     
                     Context:
                     - User's Goal: {clean_target}
-                    - Desired Reply Style: {clean_style}
                     
-                    Goal: Generate 3 distinct, CONTEXT-AWARE reply options that:
+                    Goal: Generate 4 distinct reply options for EACH of the 4 styles below. That's 16 total replies.
+                    
+                    Styles to generate:
+                    1. Hài hước & Lầy lội 😂 (Funny & Playful)
+                    2. Ngọt ngào 🍯 (Sweet & Romantic)
+                    3. Táo bạo 🔥 (Bold & Flirty)
+                    4. Lạnh lùng boy/girl 🧊 (Cool & Mysterious)
+                    
+                    Each reply should:
                     - Flow naturally from the entire conversation, not just the last message
                     - Reference previous topics or jokes if appropriate
                     - Match the energy and vibe of the conversation
-                    - Are tailored to the partner's apparent personality and interests
-                    - Use the selected style ({clean_style}) effectively
+                    - Be tailored to the partner's apparent personality and interests
                     
                     ⚠️ CRITICAL LANGUAGE RULE - THIS IS MANDATORY:
-                    - VIETNAMESE conversation = 100% Vietnamese output. EVERY SINGLE WORD must be in Vietnamese. Analysis in Vietnamese. Replies in Vietnamese. Explanations in Vietnamese. NO ENGLISH AT ALL.
+                    - VIETNAMESE conversation = 100% Vietnamese output. EVERY SINGLE WORD must be in Vietnamese.
                     - ENGLISH conversation = 100% English output. Every word in English.
-                    - DO NOT mix languages. DO NOT write "The conversation is in Vietnamese" in English. Write it in Vietnamese: "Cuộc trò chuyện..."
+                    - DO NOT mix languages.
                     - Use natural slang and texting style that matches the conversation.
                     
                     IMPORTANT: You MUST respond in this EXACT JSON format only, no other text:
                     {{
-                        "analysis": "Tóm tắt cuộc trò chuyện (VIẾT BẰNG NGÔN NGỮ CỦA CUỘC TRÒ CHUYỆN): chủ đề chính, vibe, tính cách đối phương, cơ hội rizz",
-                        "options": [
-                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}},
-                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}},
-                            {{"reply": "Câu trả lời", "explanation": "Giải thích ngắn gọn (CÙNG NGÔN NGỮ)"}}
+                        "analysis": "Tóm tắt ngắn gọn cuộc trò chuyện (VIẾT BẰNG NGÔN NGỮ CỦA CUỘC TRÒ CHUYỆN)",
+                        "styles": [
+                            {{
+                                "style_name": "Hài hước & Lầy lội 😂",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Ngọt ngào 🍯",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Táo bạo 🔥",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Lạnh lùng boy/girl 🧊",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }}
                         ]
                     }}
                     """
                     
                     def render_response_cards(response_text):
-                        """Parse JSON response and render beautiful cards"""
+                        """Parse JSON response and render beautiful cards for all styles"""
                         import json
                         import re
                         
@@ -628,16 +640,28 @@ if st.session_state.uploaded_file_data is not None:
                             analysis_html = f'''<div style="background: rgba(255, 255, 255, 0.08); border-left: 4px solid #ff6b9d; padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);"><div style="color: #ff6b9d; font-weight: 800; margin-bottom: 0.8rem; font-size: 1.3rem; letter-spacing: 0.5px;">📊 Phân tích tình huống</div><div style="color: #ddd; font-size: 1.15rem; line-height: 1.7;">{data.get('analysis', '')}</div></div>'''
                             st.markdown(analysis_html, unsafe_allow_html=True)
                             
-                            # Render each option as a card
-                            colors = ["#ff6b9d", "#ff8a65", "#ffb347"]
+                            # Style colors
+                            style_colors = {
+                                "Hài hước & Lầy lội 😂": "#FFD700",
+                                "Lạnh lùng boy/girl 🧊": "#00CED1",
+                                "Ngọt ngào 🍯": "#FF69B4",
+                                "Táo bạo 🔥": "#FF4500"
+                            }
                             
-                            for i, option in enumerate(data.get('options', [])):
-                                reply_text = option.get('reply', '')
-                                explanation = option.get('explanation', '')
-                                color = colors[i]
+                            # Render each style section
+                            for style_data in data.get('styles', []):
+                                style_name = style_data.get('style_name', '')
+                                replies = style_data.get('replies', [])
+                                color = style_colors.get(style_name, "#ff6b9d")
                                 
-                                card_html = f'''<div style="background: rgba(255, 255, 255, 0.06); border: 2px solid rgba(255, 107, 157, 0.25); border-radius: 16px; padding: 1rem 1.2rem; margin-bottom: 1rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #ff6b9d, #ff8a65, #ffb347);"></div><div style="margin-bottom: 0.8rem; margin-top: 0.3rem;"><span style="background: linear-gradient(135deg, {color} 0%, #ff8a65 100%); color: white; font-weight: 700; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 20px; box-shadow: 0 3px 8px rgba(255, 107, 157, 0.25);">Option {i+1}</span></div><div style="color: #fff; font-size: 1.15rem; line-height: 1.5; margin-bottom: 0.8rem; padding: 0.8rem 1rem; background: rgba(255, 107, 157, 0.1); border-radius: 12px; border-left: 4px solid {color}; font-weight: 600;">"{reply_text}"</div><div style="color: #bbb; font-size: 0.95rem; font-style: italic; display: flex; align-items: flex-start; gap: 0.5rem;"><span style="color: {color};">💡</span>{explanation}</div></div>'''
-                                st.markdown(card_html, unsafe_allow_html=True)
+                                # Style header
+                                style_header = f'''<div style="background: linear-gradient(135deg, {color}22, {color}11); border: 2px solid {color}66; border-radius: 16px; padding: 1rem 1.2rem; margin: 1.5rem 0 1rem 0;"><h3 style="color: {color}; margin: 0; font-size: 1.3rem; font-weight: 700;">{style_name}</h3></div>'''
+                                st.markdown(style_header, unsafe_allow_html=True)
+                                
+                                # Render replies for this style
+                                for i, reply in enumerate(replies):
+                                    reply_html = f'''<div style="background: rgba(255, 255, 255, 0.04); border-left: 3px solid {color}; padding: 0.8rem 1rem; margin-bottom: 0.6rem; border-radius: 8px;"><span style="color: {color}; font-weight: 600; font-size: 1rem;">Option {i+1}:</span> <span style="color: #eee; font-size: 1.2rem;">{reply}</span></div>'''
+                                    st.markdown(reply_html, unsafe_allow_html=True)
                             
                             return True
                         except Exception as parse_err:
