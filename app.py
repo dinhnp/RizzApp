@@ -10,7 +10,7 @@ api_key = os.getenv("GEMINI_API_KEY")
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="AI Rizz - Trợ Lý Cưa Cẩm",
+    page_title="Rizz Me Up by Dinh Nguyen",
     page_icon="💘",
     layout="centered",
     initial_sidebar_state="collapsed"
