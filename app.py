@@ -285,6 +285,25 @@ st.markdown("""
         border-color: #ff6b9d !important;
     }
     
+    /* Delete button wrapper - centered on all devices */
+    .delete-btn-wrapper {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100%;
+    }
+    
+    /* Delete button - small and centered */
+    [data-testid="column"]:nth-child(3) [data-testid="stButton"] button {
+        background: transparent !important;
+        color: #ff6b9d !important;
+        border: 1px solid rgba(255, 107, 157, 0.4) !important;
+        border-radius: 20px !important;
+        padding: 0.3rem 0.8rem !important;
+        font-size: 0.8rem !important;
+        max-width: 80px !important;
+        min-width: 50px !important;
+    }
+    
     /* Sidebar Styling - Dark & Clean */
     .css-1d391kg, [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #252533 0%, #1e1e2a 100%);
@@ -362,10 +381,16 @@ st.markdown("""
         transition: all 0.3s ease;
         cursor: pointer;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        color: #fff !important;
+        color: #ffffff !important;
         font-size: 1.15rem !important;
         font-weight: 600 !important;
         white-space: nowrap;
+    }
+    
+    .stRadio > div > label span,
+    .stRadio > div > label p,
+    .stRadio > div > label div {
+        color: #ffffff !important;
     }
     
     .stRadio > div > label:hover {
@@ -518,22 +543,22 @@ if st.session_state.uploaded_file_data is not None:
     img_base64 = base64.b64encode(buffered.getvalue()).decode()
     
     # Use columns to constrain image width (center column only)
-    col1, col2, col3 = st.columns([1, 1.5, 1])
+    col1, col2, col3 = st.columns([1.2, 1, 1.2])
     with col2:
         # Combined HTML structure with image and clickable overlay X button
         st.markdown(f'''
         <div class="image-with-overlay">
-            <img src="data:image/png;base64,{img_base64}" style="width: 100%; border-radius: 12px;">
+            <img src="data:image/png;base64,{img_base64}" style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 12px;">
             <div class="image-caption">📱 Ảnh chat của bạn</div>
         </div>
         ''', unsafe_allow_html=True)
-        
-        # Center the delete button using columns
-        btn_col1, btn_col2, btn_col3 = st.columns([1, 3, 1])
-        with btn_col2:
-            if st.button("🗑️ Xóa ảnh", key="delete_image"):
-                st.session_state.uploaded_file_data = None
-                st.rerun()
+    
+    # Delete button - narrower center column
+    _, _, center_btn, _, _ = st.columns(5)
+    with center_btn:
+        if st.button("🗑️ Xóa", key="delete_image", use_container_width=True):
+            st.session_state.uploaded_file_data = None
+            st.rerun()
     
     st.markdown("")  # Spacing
     
