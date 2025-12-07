@@ -220,6 +220,71 @@ st.markdown("""
         transform: translateY(-2px) scale(1.01);
     }
     
+    /* Image with overlay container */
+    .image-with-overlay {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+    
+    .image-caption {
+        text-align: center;
+        color: #aaa;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* X delete button positioned over image */
+    .delete-overlay-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        backdrop-filter: blur(4px);
+        text-decoration: none;
+    }
+    
+    .delete-overlay-btn:hover {
+        background: rgba(255, 60, 60, 0.9);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: scale(1.1);
+    }
+    
+    /* Center the delete button below image */
+    .image-with-overlay + div + div [data-testid="stButton"],
+    [data-testid="column"] .image-with-overlay ~ div [data-testid="stButton"] {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    .image-with-overlay ~ div [data-testid="stButton"] button {
+        background: transparent !important;
+        color: #ff6b9d !important;
+        border: 1px solid rgba(255, 107, 157, 0.3) !important;
+        border-radius: 20px !important;
+        padding: 0.4rem 1rem !important;
+        font-size: 0.9rem !important;
+        box-shadow: none !important;
+    }
+    
+    .image-with-overlay ~ div [data-testid="stButton"] button:hover {
+        background: rgba(255, 107, 157, 0.15) !important;
+        border-color: #ff6b9d !important;
+    }
+    
     /* Sidebar Styling - Dark & Clean */
     .css-1d391kg, [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #252533 0%, #1e1e2a 100%);
@@ -397,8 +462,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Main Content ---
-st.markdown('<h1 class="hero-title">💘 Rizz Master</h1>', unsafe_allow_html=True)
-st.markdown('<p class="hero-subtitle">Upload screenshot tin nhắn • Nhận gợi ý trả lời cực dính</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="hero-title" style="text-align: center;">💘 Rizz Me Up 💘</h1>', unsafe_allow_html=True)
+st.markdown('<p class="hero-subtitle" style="text-align: center;">Rep là dính • thính là say/slay</p>', unsafe_allow_html=True)
 
 # --- Settings Row ---
 col1, col2 = st.columns([1, 1.5])
@@ -422,21 +487,53 @@ with col2:
 
 st.markdown("")  # Spacing
 
-# File uploader - fully styled via CSS to look like custom card
-uploaded_file = st.file_uploader(
-    "Upload",
-    type=['png', 'jpg', 'jpeg'],
-    label_visibility="collapsed"
-)
+# Initialize session state
+if 'uploaded_file_data' not in st.session_state:
+    st.session_state.uploaded_file_data = None
 
-if uploaded_file is not None:
-    # Display image with rounded corners - constrained size
-    image = Image.open(uploaded_file)
+# Show uploader only when no file is stored
+if st.session_state.uploaded_file_data is None:
+    uploaded_file = st.file_uploader(
+        "Upload",
+        type=['png', 'jpg', 'jpeg'],
+        label_visibility="collapsed"
+    )
+    
+    # Store file data when uploaded
+    if uploaded_file is not None:
+        st.session_state.uploaded_file_data = uploaded_file.read()
+        st.rerun()
+
+# Display uploaded image if exists
+if st.session_state.uploaded_file_data is not None:
+    # Load image from session state
+    from io import BytesIO
+    import base64
+    
+    image = Image.open(BytesIO(st.session_state.uploaded_file_data))
+    
+    # Convert image to base64 for HTML embedding
+    buffered = BytesIO()
+    image.save(buffered, format="PNG")
+    img_base64 = base64.b64encode(buffered.getvalue()).decode()
     
     # Use columns to constrain image width (center column only)
     col1, col2, col3 = st.columns([1, 1.5, 1])
     with col2:
-        st.image(image, caption='📱 Ảnh chat của bạn', use_container_width=True)
+        # Combined HTML structure with image and clickable overlay X button
+        st.markdown(f'''
+        <div class="image-with-overlay">
+            <img src="data:image/png;base64,{img_base64}" style="width: 100%; border-radius: 12px;">
+            <div class="image-caption">📱 Ảnh chat của bạn</div>
+        </div>
+        ''', unsafe_allow_html=True)
+        
+        # Center the delete button using columns
+        btn_col1, btn_col2, btn_col3 = st.columns([1, 3, 1])
+        with btn_col2:
+            if st.button("🗑️ Xóa ảnh", key="delete_image"):
+                st.session_state.uploaded_file_data = None
+                st.rerun()
     
     st.markdown("")  # Spacing
     
@@ -605,7 +702,20 @@ else:
 # Footer
 st.markdown("""
 <div class="footer-text">
-    💕 Được tạo bởi AI • Phiên bản 2.0<br/>
-    <small>Sử dụng Gemini AI để phân tích và gợi ý</small>
+    💕 Được tạo bởi Dinh Nguyen 💕<br/>
+    <span style="font-size: 0.9rem;">Góp ý hoặc donate qua Facebook</span>
+    <a href="https://www.facebook.com/dinhnp" target="_blank" style="
+        display: inline-block;
+        background: linear-gradient(135deg, #1877f2 0%, #3b5998 100%);
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-left: 0.3rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
+    ">Dinh Nguyen</a>
 </div>
 """, unsafe_allow_html=True)
