@@ -70,20 +70,6 @@ st.markdown("""
         100% { transform: translate(5%, 5%) rotate(0deg); }
     }
     
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* Hide Streamlit branding elements */
-    ._profileContainer_gzau3_53 {display: none !important;}
-    ._profilePreview_gzau3_63 {display: none !important;}
-    ._profileImage_gzau3_78 {display: none !important;}
-    ._link_gzau3_10 {display: none !important;}
-    [data-testid="appCreatorAvatar"] {display: none !important;}
-    .stDeployButton {display: none !important;}
-    #MainMenu {display: none !important;}
-    
     /* Main container styling */
     .main .block-container {
         padding-top: 2rem;
