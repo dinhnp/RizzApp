@@ -16,19 +16,58 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- Custom CSS for Premium Dark Theme ---
-# --- Custom CSS for Premium Theme ---
+# --- Custom CSS for Soft Playful Theme ---
 st.markdown("""
 <style>
-    /* Import Google Font */
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
     
-    /* Global Styles */
+    /* Global Styles - Mesh Gradient Background */
     .stApp {
-        font-family: 'Outfit', sans-serif;
-        background: #0f0c29;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        font-family: 'Nunito', sans-serif;
+        background-color: #0f0c29;
+        overflow: hidden;
+    }
+
+    /* Animated Mesh Gradient Background */
+    .stApp::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: 
+            radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+            radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        z-index: -2;
+    }
+
+    .stApp::after {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: 
+            radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.4), transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(219, 39, 119, 0.4), transparent 40%),
+            radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.4), transparent 40%),
+            radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.4), transparent 40%);
+        filter: blur(60px);
+        animation: meshMove 20s ease-in-out infinite alternate;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    @keyframes meshMove {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(-5%, 5%) rotate(5deg); }
+        50% { transform: translate(5%, -5%) rotate(-5deg); }
+        75% { transform: translate(-5%, -5%) rotate(5deg); }
+        100% { transform: translate(5%, 5%) rotate(0deg); }
     }
     
     /* Hide Streamlit branding */
@@ -38,188 +77,255 @@ st.markdown("""
     
     /* Main container styling */
     .main .block-container {
-        padding-top: 3rem;
+        padding-top: 2rem;
         padding-bottom: 3rem;
-        max-width: 850px;
+        max-width: 800px;
     }
     
-    /* Custom Header */
+    /* Custom Header - Playful gradient */
     .hero-title {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
         font-weight: 800;
-        background: linear-gradient(to right, #ff9966, #ff5e62);
+        background: linear-gradient(135deg, #ff6b9d 0%, #ff8a65 50%, #ffb347 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
-        margin-bottom: 0.5rem;
-        letter-spacing: -1px;
-        text-shadow: 0 10px 30px rgba(255, 94, 98, 0.3);
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.5px;
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
     }
     
     .hero-subtitle {
-        font-size: 1.2rem;
-        color: #e0e0e0;
+        font-size: 1.3rem;
+        color: #aaa;
         text-align: center;
-        margin-bottom: 3rem;
-        font-weight: 300;
-        opacity: 0.8;
+        margin-bottom: 2.5rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
     }
     
-    /* Upload Area */
-    .upload-container {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        border: 2px dashed rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 3rem 2rem;
-        text-align: center;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-bottom: 2rem;
-    }
-    
-    .upload-container:hover {
-        border-color: #ff9966;
-        background: rgba(255, 255, 255, 0.08);
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-    
-    /* Style the file uploader */
+    /* File uploader styling */
     .stFileUploader > div > div {
-        background: transparent !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 3px dashed rgba(255, 107, 157, 0.4) !important;
+        border-radius: 20px !important;
+        padding: 2rem !important;
+        transition: all 0.3s ease;
+    }
+    
+    .stFileUploader > div > div:hover {
+        border-color: #ff6b9d !important;
+        background: rgba(255, 107, 157, 0.1) !important;
+        transform: scale(1.02);
     }
     
     .stFileUploader label {
-        color: #fff !important;
-        font-size: 1.1rem;
+        color: #ccc !important;
+        font-weight: 700 !important;
+        font-size: 1.25rem !important;
+        letter-spacing: 0.5px;
     }
     
-    /* Primary Button */
+    /* Primary Button - Playful & Bouncy */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(90deg, #ff9966 0%, #ff5e62 100%);
+        background: linear-gradient(135deg, #ff6b9d 0%, #ff8a65 100%);
         color: white;
-        font-weight: 600;
-        font-size: 1.2rem;
-        padding: 1rem 2rem;
+        font-weight: 800;
+        font-size: 1.3rem;
+        padding: 1.2rem 2.5rem;
         border: none;
-        border-radius: 16px;
+        border-radius: 50px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 25px rgba(255, 94, 98, 0.4);
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        text-transform: none;
+        letter-spacing: 0.5px;
     }
     
     .stButton > button:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(255, 94, 98, 0.6);
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(255, 107, 157, 0.5);
+        background: linear-gradient(135deg, #ff8a9e 0%, #ff9a75 100%);
     }
     
     .stButton > button:active {
-        transform: translateY(1px);
+        transform: translateY(-2px) scale(1.01);
     }
     
-    /* Sidebar Styling */
+    /* Sidebar Styling - Dark & Clean */
     .css-1d391kg, [data-testid="stSidebar"] {
-        background: rgba(15, 12, 41, 0.95);
-        backdrop-filter: blur(20px);
-        border-right: 1px solid rgba(255,255,255,0.05);
+        background: linear-gradient(180deg, #252533 0%, #1e1e2a 100%);
+        border-right: 1px solid rgba(255, 107, 157, 0.2);
     }
     
+    /* Sidebar Typography */
     [data-testid="stSidebar"] .stSelectbox label,
     [data-testid="stSidebar"] .stRadio label {
         color: #e0e0e0 !important;
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 1.15rem !important;
+        letter-spacing: 0.3px;
+    }
+
+    [data-testid="stSidebar"] h5 {
+        color: #ffffff !important;
+        font-weight: 800;
+        font-size: 1.4rem !important;
+        margin-bottom: 1.2rem !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        letter-spacing: 0.5px;
+    }
+    
+    [data-testid="stSidebar"] .stMarkdown p {
+        font-size: 1.1rem !important;
     }
     
     /* Sidebar Title */
     .sidebar-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        background: linear-gradient(to right, #ff9966, #ff5e62);
+        font-size: 1.6rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #ff6b9d 0%, #ff8a65 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
     
-    /* Style Selector Cards */
-    .style-option {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 12px;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
-        transition: all 0.2s ease;
+    /* Selectbox - Beautiful Dropdown */
+    .stSelectbox > div > div {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 2px solid rgba(255, 107, 157, 0.3) !important;
+        border-radius: 15px !important;
+        color: #eee !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
-    /* Success/Info/Warning boxes */
-    .stSuccess, .stInfo, .stWarning, .stError {
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        color: #fff;
+    .stSelectbox > div > div:hover {
+        border-color: #ff6b9d !important;
+        box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+    }
+    
+    .stSelectbox > div > div:focus-within {
+        border-color: #ff6b9d !important;
+        box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.2);
+    }
+    
+    /* Radio buttons - Pill style */
+    .stRadio > div {
+        gap: 0.6rem;
+        flex-direction: column;
+    }
+    
+    .stRadio > div > label {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 2px solid rgba(255, 107, 157, 0.3) !important;
+        border-radius: 15px !important;
+        padding: 0.8rem 1.2rem !important;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        color: #ddd !important;
+    }
+    
+    .stRadio > div > label:hover {
+        border-color: #ff6b9d !important;
+        background: rgba(255, 107, 157, 0.15) !important;
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
+    }
+    
+    .stRadio > div > label[data-checked="true"] {
+        background: linear-gradient(135deg, #ff6b9d 0%, #ff8a65 100%) !important;
+        border-color: #ff6b9d !important;
+        color: white !important;
+    }
+    
+    /* Success/Info/Warning/Error boxes */
+    .stSuccess {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+        border: 2px solid #28a745 !important;
+        border-radius: 15px !important;
+        color: #155724 !important;
+    }
+    
+    .stInfo {
+        background: linear-gradient(135deg, #e7f3ff 0%, #cce5ff 100%) !important;
+        border: 2px solid #17a2b8 !important;
+        border-radius: 15px !important;
+        color: #0c5460 !important;
+    }
+    
+    .stWarning {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%) !important;
+        border: 2px solid #ffc107 !important;
+        border-radius: 15px !important;
+        color: #856404 !important;
+    }
+    
+    .stError {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+        border: 2px solid #dc3545 !important;
+        border-radius: 15px !important;
+        color: #721c24 !important;
     }
     
     /* Image styling */
     .stImage {
-        border-radius: 24px;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        border: 3px solid rgba(255, 107, 157, 0.3);
     }
     
     /* Spinner */
     .stSpinner > div {
-        border-color: #ff9966 !important;
+        border-color: #ff6b9d !important;
     }
     
     /* Footer */
     .footer-text {
         text-align: center;
-        color: rgba(255,255,255,0.4);
+        color: #999;
         font-size: 0.9rem;
-        margin-top: 4rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    
-    /* Radio buttons styling */
-    .stRadio > div {
-        gap: 0.8rem;
-    }
-    
-    .stRadio > div > label {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.05);
-        border-radius: 12px;
-        padding: 0.8rem 1.2rem;
-        transition: all 0.2s ease;
-    }
-    
-    .stRadio > div > label:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(255,255,255,0.2);
-    }
-    
-    /* Selectbox styling */
-    .stSelectbox > div > div {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 12px;
-        color: white;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 2px dashed #ffe4ec;
     }
     
     /* Divider */
     .custom-divider {
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-        margin: 2rem 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #ffb6c1, transparent);
+        margin: 1.5rem 0;
+        border-radius: 2px;
+    }
+    
+    /* Cards container for results */
+    .result-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 5px 20px rgba(255, 107, 157, 0.1);
+        border: 2px solid #ffe4ec;
+        transition: all 0.3s ease;
+    }
+    
+    .result-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.15);
+        border-color: #ffb6c1;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -246,14 +352,6 @@ with st.sidebar:
     
     st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
     
-    # Status indicator
-    if api_key:
-        st.success("✅ API Key đã kết nối")
-    else:
-        st.error("❌ Chưa có API Key")
-    
-    st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
-    
     st.markdown("""
     <div style="text-align: center; color: #666; font-size: 0.8rem;">
         Made with 💕 by AI<br/>
@@ -273,9 +371,13 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    # Display image with rounded corners
+    # Display image with rounded corners - constrained size
     image = Image.open(uploaded_file)
-    st.image(image, caption='📱 Ảnh chat của bạn', use_container_width=True)
+    
+    # Use columns to constrain image width (center column only)
+    col1, col2, col3 = st.columns([1, 1.5, 1])
+    with col2:
+        st.image(image, caption='📱 Ảnh chat của bạn', use_container_width=True)
     
     st.markdown("")  # Spacing
     
@@ -347,20 +449,18 @@ if uploaded_file is not None:
                                 raise ValueError("No JSON found")
                             
                             # Render analysis
-                            analysis_html = f'''<div style="background: rgba(255,255,255,0.05); border-left: 4px solid #ff9966; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><div style="color: #ff9966; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem; letter-spacing: 0.5px; text-transform: uppercase;">📊 Phân tích tình huống</div><div style="color: #e0e0e0; font-size: 1.05rem; line-height: 1.6;">{data.get('analysis', '')}</div></div>'''
+                            analysis_html = f'''<div style="background: rgba(255, 255, 255, 0.08); border-left: 4px solid #ff6b9d; padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);"><div style="color: #ff6b9d; font-weight: 800; margin-bottom: 0.8rem; font-size: 1.3rem; letter-spacing: 0.5px;">📊 Phân tích tình huống</div><div style="color: #ddd; font-size: 1.15rem; line-height: 1.7;">{data.get('analysis', '')}</div></div>'''
                             st.markdown(analysis_html, unsafe_allow_html=True)
                             
                             # Render each option as a card
-                            icons = ["�", "�", "✨"]
-                            colors = ["#ff9966", "#ff5e62", "#ff9966"]
+                            colors = ["#ff6b9d", "#ff8a65", "#ffb347"]
                             
                             for i, option in enumerate(data.get('options', [])):
                                 reply_text = option.get('reply', '')
                                 explanation = option.get('explanation', '')
                                 color = colors[i]
-                                icon = icons[i]
                                 
-                                card_html = f'''<div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.1);"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #ff9966, #ff5e62);"></div><div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;"><span style="background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%); color: white; font-weight: 700; font-size: 0.9rem; padding: 0.4rem 1rem; border-radius: 30px; box-shadow: 0 5px 15px rgba(255, 94, 98, 0.3);">Option {i+1}</span><span style="font-size: 1.4rem;">{icon}</span></div><div style="color: #fff; font-size: 1.25rem; line-height: 1.5; margin-bottom: 1rem; padding: 1rem 1.2rem; background: rgba(255,255,255,0.05); border-radius: 12px; border-left: 3px solid #ff9966; font-weight: 500;">"{reply_text}"</div><div style="color: rgba(255,255,255,0.6); font-size: 0.95rem; font-style: italic; display: flex; align-items: flex-start; gap: 0.6rem;"><span style="color: #ff9966;">💡</span>{explanation}</div></div>'''
+                                card_html = f'''<div style="background: rgba(255, 255, 255, 0.06); border: 2px solid rgba(255, 107, 157, 0.25); border-radius: 16px; padding: 1rem 1.2rem; margin-bottom: 1rem; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #ff6b9d, #ff8a65, #ffb347);"></div><div style="margin-bottom: 0.8rem; margin-top: 0.3rem;"><span style="background: linear-gradient(135deg, {color} 0%, #ff8a65 100%); color: white; font-weight: 700; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 20px; box-shadow: 0 3px 8px rgba(255, 107, 157, 0.25);">Option {i+1}</span></div><div style="color: #fff; font-size: 1.15rem; line-height: 1.5; margin-bottom: 0.8rem; padding: 0.8rem 1rem; background: rgba(255, 107, 157, 0.1); border-radius: 12px; border-left: 4px solid {color}; font-weight: 600;">"{reply_text}"</div><div style="color: #bbb; font-size: 0.95rem; font-style: italic; display: flex; align-items: flex-start; gap: 0.5rem;"><span style="color: {color};">💡</span>{explanation}</div></div>'''
                                 st.markdown(card_html, unsafe_allow_html=True)
                             
                             return True
@@ -444,11 +544,11 @@ else:
     st.markdown("""
     <div style="
         text-align: center;
-        padding: 3rem 2rem;
+        padding: 1rem 1rem;
         background: linear-gradient(145deg, rgba(255,107,157,0.05) 0%, rgba(196,69,105,0.05) 100%);
         border: 2px dashed rgba(255,107,157,0.3);
         border-radius: 20px;
-        margin: 2rem 0;
+        margin: 1rem 0;
     ">
         <div style="font-size: 4rem; margin-bottom: 1rem;">📸</div>
         <div style="color: #e0e0e0; font-size: 1.2rem; margin-bottom: 0.5rem;">
