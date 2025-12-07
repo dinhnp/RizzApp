@@ -77,6 +77,13 @@ st.markdown("""
         max-width: 800px;
     }
     
+    /* Hide Streamlit toolbar/header completely */
+    [data-testid="stToolbar"] {display: none !important;}
+    [data-testid="stHeader"] {display: none !important;}
+    [data-testid="stDecoration"] {display: none !important;}
+    .stDeployButton {display: none !important;}
+    div[data-testid="stStatusWidget"] {display: none !important;}
+    
     /* Custom Header - Playful gradient */
     .hero-title {
         font-size: 3.2rem;
@@ -592,7 +599,10 @@ if st.session_state.uploaded_file_data is not None:
                     1. Hài hước & Lầy lội 😂 (Funny & Playful)
                     2. Ngọt ngào 🍯 (Sweet & Romantic)
                     3. Táo bạo 🔥 (Bold & Flirty)
-                    4. Lạnh lùng boy/girl 🧊 (Cool & Mysterious)
+                    4. Mysterious 🌙 (Mysterious & Intriguing)
+                    5. Lãng mạn 🌹 (Romantic & Poetic)
+                    6. Playboy/Playgirl 😏 (Confident & Charming)
+                    7. Lạnh lùng boy/girl 🧊 (Cool & Mysterious)
                     
                     Each reply should:
                     - Flow naturally from the entire conversation, not just the last message
@@ -620,6 +630,18 @@ if st.session_state.uploaded_file_data is not None:
                             }},
                             {{
                                 "style_name": "Táo bạo 🔥",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Mysterious 🌙",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Lãng mạn 🌹",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
+                            {{
+                                "style_name": "Playboy/Playgirl 😏",
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
                             }},
                             {{
@@ -651,9 +673,12 @@ if st.session_state.uploaded_file_data is not None:
                             # Style colors
                             style_colors = {
                                 "Hài hước & Lầy lội 😂": "#FFD700",
-                                "Lạnh lùng boy/girl 🧊": "#00CED1",
                                 "Ngọt ngào 🍯": "#FF69B4",
-                                "Táo bạo 🔥": "#FF4500"
+                                "Táo bạo 🔥": "#FF4500",
+                                "Mysterious 🌙": "#6A5ACD",
+                                "Lãng mạn 🌹": "#E91E63",
+                                "Playboy/Playgirl 😏": "#FF1493",
+                                "Lạnh lùng boy/girl 🧊": "#00CED1"
                             }
                             
                             # Render each style section
@@ -681,7 +706,7 @@ if st.session_state.uploaded_file_data is not None:
                     # Attempt generation
                     try:
                         # Try default model first
-                        default_model = 'gemini-1.5-flash'
+                        default_model = 'gemini-2.0-flash-exp'
                         model = genai.GenerativeModel(default_model)
                         response = model.generate_content([prompt, image])
                         
