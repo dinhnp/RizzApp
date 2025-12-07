@@ -84,6 +84,11 @@ st.markdown("""
     .stDeployButton {display: none !important;}
     div[data-testid="stStatusWidget"] {display: none !important;}
     
+    /* Reduce top padding in main container */
+    .st-emotion-cache-1w723zb {
+        padding: 2rem 1rem 10rem !important;
+    }
+    
     /* Custom Header - Playful gradient */
     .hero-title {
         font-size: 3.2rem;
@@ -93,7 +98,7 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         background-clip: text;
         text-align: center;
-        margin-top: -3rem;
+        margin-top: -5rem;
         margin-bottom: 0.3rem;
         letter-spacing: -0.5px;
         animation: bounce 2s ease-in-out infinite;
