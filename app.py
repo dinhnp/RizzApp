@@ -13,18 +13,18 @@ st.set_page_config(
     page_title="AI Rizz - Trợ Lý Cưa Cẩm",
     page_icon="💘",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # --- Custom CSS for Soft Playful Theme ---
 st.markdown("""
 <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+    /* Import Google Fonts - Be Vietnam Pro (optimized for Vietnamese) */
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
     
     /* Global Styles - Mesh Gradient Background */
     .stApp {
-        font-family: 'Nunito', sans-serif;
+        font-family: 'Be Vietnam Pro', sans-serif;
         background-color: #0f0c29;
         overflow: hidden;
     }
@@ -112,24 +112,85 @@ st.markdown("""
     
     /* File uploader styling */
     .stFileUploader > div > div {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border: 3px dashed rgba(255, 107, 157, 0.4) !important;
-        border-radius: 20px !important;
-        padding: 2rem !important;
+        background: linear-gradient(145deg, rgba(255,107,157,0.08) 0%, rgba(255,138,101,0.05) 100%) !important;
+        border: 2px dashed rgba(255, 107, 157, 0.5) !important;
+        border-radius: 24px !important;
+        padding: 2.5rem 2rem !important;
         transition: all 0.3s ease;
     }
     
     .stFileUploader > div > div:hover {
         border-color: #ff6b9d !important;
-        background: rgba(255, 107, 157, 0.1) !important;
-        transform: scale(1.02);
+        background: linear-gradient(145deg, rgba(255,107,157,0.12) 0%, rgba(255,138,101,0.08) 100%) !important;
+        transform: scale(1.01);
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
     }
     
     .stFileUploader label {
-        color: #ccc !important;
+        color: #e0e0e0 !important;
         font-weight: 700 !important;
-        font-size: 1.25rem !important;
-        letter-spacing: 0.5px;
+        font-size: 1.2rem !important;
+        letter-spacing: 0.3px;
+    }
+    
+    /* Style the drag text */
+    .stFileUploader [data-testid="stFileUploaderDropzone"] p {
+        color: #aaa !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* Hide the default ugly text and replace with styled version */
+    .stFileUploader [data-testid="stFileUploaderDropzone"] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 180px !important;
+        cursor: pointer !important;
+        background: linear-gradient(145deg, rgba(255,107,157,0.08) 0%, rgba(196,69,105,0.05) 100%) !important;
+        border: 2px dashed rgba(255,107,157,0.4) !important;
+        border-radius: 24px !important;
+        padding: 2rem !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .stFileUploader [data-testid="stFileUploaderDropzone"]:hover {
+        border-color: #ff6b9d !important;
+        background: linear-gradient(145deg, rgba(255,107,157,0.12) 0%, rgba(196,69,105,0.08) 100%) !important;
+        transform: scale(1.01) !important;
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2) !important;
+    }
+    
+    /* Hide ALL default content inside dropzone */
+    .stFileUploader [data-testid="stFileUploaderDropzone"] > div,
+    .stFileUploader [data-testid="stFileUploaderDropzone"] span,
+    .stFileUploader [data-testid="stFileUploaderDropzone"] button,
+    .stFileUploader [data-testid="stFileUploaderDropzone"] small,
+    .stFileUploader [data-testid="stFileUploaderDropzoneInstructions"] {
+        display: none !important;
+    }
+    
+    /* Show custom content via pseudo-elements */
+    .stFileUploader [data-testid="stFileUploaderDropzone"]::before {
+        content: "📸" !important;
+        display: block !important;
+        font-size: 3.5rem !important;
+    }
+    
+    .stFileUploader [data-testid="stFileUploaderDropzone"]::after {
+        content: "Kéo thả hoặc click để upload ảnh chat\\A Hỗ trợ PNG, JPG, JPEG" !important;
+        display: block !important;
+        white-space: pre-wrap !important;
+        text-align: center !important;
+        color: #ddd !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+        line-height: 1.8 !important;
+    }
+    
+    /* Hide the small text under uploader */
+    .stFileUploader small {
+        display: none !important;
     }
     
     /* Primary Button - Playful & Bouncy */
@@ -223,29 +284,34 @@ st.markdown("""
     
     /* Radio buttons - Pill style */
     .stRadio > div {
-        gap: 0.6rem;
-        flex-direction: column;
+        gap: 0.5rem;
+        display: flex !important;
+        flex-wrap: wrap;
     }
     
     .stRadio > div > label {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border: 2px solid rgba(255, 107, 157, 0.3) !important;
-        border-radius: 15px !important;
-        padding: 0.8rem 1.2rem !important;
+        background: rgba(30, 30, 50, 0.8) !important;
+        border: 2px solid rgba(255, 107, 157, 0.4) !important;
+        border-radius: 25px !important;
+        padding: 0.6rem 1.2rem !important;
         transition: all 0.3s ease;
         cursor: pointer;
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        color: #ddd !important;
+        color: #fff !important;
+        font-size: 1.15rem !important;
+        font-weight: 600 !important;
+        white-space: nowrap;
     }
     
     .stRadio > div > label:hover {
         border-color: #ff6b9d !important;
         background: rgba(255, 107, 157, 0.15) !important;
-        transform: translateX(5px);
+        transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
     }
     
-    .stRadio > div > label[data-checked="true"] {
+    .stRadio > div > label[data-checked="true"],
+    .stRadio > div > label[data-baseweb="radio"]:has(input:checked) {
         background: linear-gradient(135deg, #ff6b9d 0%, #ff8a65 100%) !important;
         border-color: #ff6b9d !important;
         color: white !important;
@@ -330,44 +396,37 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Sidebar ---
-with st.sidebar:
-    st.markdown('<div class="sidebar-title">⚙️ Cài đặt</div>', unsafe_allow_html=True)
-    
-    st.markdown("##### 🎭 Phong cách trả lời")
+# --- Main Content ---
+st.markdown('<h1 class="hero-title">💘 Rizz Master</h1>', unsafe_allow_html=True)
+st.markdown('<p class="hero-subtitle">Upload screenshot tin nhắn • Nhận gợi ý trả lời cực dính</p>', unsafe_allow_html=True)
+
+# --- Settings Row ---
+col1, col2 = st.columns([1, 1.5])
+
+with col1:
+    st.markdown("**🎭 Phong cách trả lời**")
     style = st.selectbox(
         "Chọn style",
         ["Hài hước & Lầy lội 😂", "Lạnh lùng boy/girl 🧊", "Ngọt ngào 🍯", "Táo bạo 🔥"],
         label_visibility="collapsed"
     )
-    
-    st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
-    
-    st.markdown("##### 🎯 Đối tượng mục tiêu")
+
+with col2:
+    st.markdown("**🎯 Đối tượng mục tiêu**")
     target = st.radio(
         "Chọn đối tượng",
         ["👩 Tán Bạn Gái", "👨 Tán Bạn Trai"],
-        label_visibility="collapsed"
+        label_visibility="collapsed",
+        horizontal=True
     )
-    
-    st.markdown('<div class="custom-divider"></div>', unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style="text-align: center; color: #666; font-size: 0.8rem;">
-        Made with 💕 by AI<br/>
-        <span style="color: #ff6b9d;">v2.0</span>
-    </div>
-    """, unsafe_allow_html=True)
 
-# --- Main Content ---
-st.markdown('<h1 class="hero-title">💘 Rizz Master</h1>', unsafe_allow_html=True)
-st.markdown('<p class="hero-subtitle">Upload screenshot tin nhắn • Nhận gợi ý trả lời cực dính</p>', unsafe_allow_html=True)
+st.markdown("")  # Spacing
 
-# File uploader with custom styling
+# File uploader - fully styled via CSS to look like custom card
 uploaded_file = st.file_uploader(
-    "📸 Kéo thả hoặc click để upload ảnh chat",
+    "Upload",
     type=['png', 'jpg', 'jpeg'],
-    help="Hỗ trợ PNG, JPG, JPEG"
+    label_visibility="collapsed"
 )
 
 if uploaded_file is not None:
@@ -540,25 +599,8 @@ if uploaded_file is not None:
                 st.error(f"❌ Lỗi không mong muốn: {str(e)}")
 
 else:
-    # Empty state with attractive design
-    st.markdown("""
-    <div style="
-        text-align: center;
-        padding: 1rem 1rem;
-        background: linear-gradient(145deg, rgba(255,107,157,0.05) 0%, rgba(196,69,105,0.05) 100%);
-        border: 2px dashed rgba(255,107,157,0.3);
-        border-radius: 20px;
-        margin: 1rem 0;
-    ">
-        <div style="font-size: 4rem; margin-bottom: 1rem;">📸</div>
-        <div style="color: #e0e0e0; font-size: 1.2rem; margin-bottom: 0.5rem;">
-            Chưa có ảnh nào được upload
-        </div>
-        <div style="color: #888; font-size: 0.95rem;">
-            Hãy upload ảnh chụp màn hình đoạn chat để bắt đầu
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # No image uploaded - the upload card above is already visible
+    pass
 
 # Footer
 st.markdown("""
