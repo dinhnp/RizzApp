@@ -364,9 +364,12 @@ st.markdown("""
     
     /* Radio buttons - Pill style */
     .stRadio > div {
-        gap: 0.5rem;
+        gap: 1rem;
         display: flex !important;
-        flex-wrap: wrap;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
     
     .stRadio > div > label {
@@ -432,6 +435,11 @@ st.markdown("""
         color: #721c24 !important;
     }
     
+    /* Spinner text color */
+    .stSpinner > div > div {
+        color: white !important;
+    }
+    
     /* Image styling */
     .stImage {
         border-radius: 20px;
@@ -487,7 +495,7 @@ st.markdown('<h1 class="hero-title" style="text-align: center;">💘 Rizz Me Up 
 st.markdown('<p class="hero-subtitle" style="text-align: center;">Rep là dính • thính là say/slay</p>', unsafe_allow_html=True)
 
 # --- Settings Row ---
-st.markdown('<div style="text-align: center;"><b>🎯 Đối tượng mục tiêu</b></div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center; color: white;"><b>🎯 Đối tượng mục tiêu</b></div>', unsafe_allow_html=True)
 
 # Center the radio buttons
 _, center_col, _ = st.columns(3)
