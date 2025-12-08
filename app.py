@@ -811,6 +811,7 @@ st.markdown("""
         margin-left: 0.3rem;
         transition: all 0.2s ease;
         box-shadow: 0 2px 8px rgba(24, 119, 242, 0.3);
-    ">Dinh Nguyen</a>
+    ">Dinh Nguyen</a> <br/>
+    <span style="font-size: 0.9rem;">App không lưu trữ hình ảnh upload của bạn</span>
 </div>
 """, unsafe_allow_html=True)
