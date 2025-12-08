@@ -186,7 +186,7 @@ st.markdown("""
     }
     
     .stFileUploader [data-testid="stFileUploaderDropzone"]::after {
-        content: "Kéo thả hoặc click để upload ảnh chat\\A Hỗ trợ PNG, JPG, JPEG" !important;
+        content: "Đang kẹt ko biết nói gì? Cứu bồ điiii\\A Up ảnh chat - Hỗ trợ PNG, JPG, JPEG" !important;
         display: block !important;
         white-space: pre-wrap !important;
         text-align: center !important;
@@ -514,7 +514,7 @@ _, center_col, _ = st.columns(3)
 with center_col:
     target = st.radio(
         "Chọn đối tượng",
-        ["👩 Tán Bạn Gái", "👨 Tán Bạn Trai"],
+        ["👩 Tán Gái", "👨 Tán Trai"],
         label_visibility="collapsed",
         horizontal=True
     )
@@ -784,7 +784,7 @@ else:
 # Footer
 st.markdown("""
 <div class="footer-text">
-    💕 Được tạo bởi Dinh Nguyen 💕<br/>
+    💕 Having fun by Dinh Nguyen 💕<br/>
     <span style="font-size: 0.9rem;">Góp ý hoặc donate qua Facebook</span>
     <a href="https://www.facebook.com/dinhnp" target="_blank" style="
         display: inline-block;
