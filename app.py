@@ -186,7 +186,7 @@ st.markdown("""
     }
     
     .stFileUploader [data-testid="stFileUploaderDropzone"]::after {
-        content: "Đang kẹt ko biết nói gì? Cứu bồ điiii\\A Up ảnh chat - Hỗ trợ PNG, JPG, JPEG" !important;
+        content: "Đang kẹt ko biết nói gì? Cứu bồ điiii\\A Up ảnh chat (Eng/Viet) - Hỗ trợ PNG, JPG, JPEG" !important;
         display: block !important;
         white-space: pre-wrap !important;
         text-align: center !important;
@@ -598,16 +598,17 @@ if st.session_state.uploaded_file_data is not None:
                     Context:
                     - User's Goal: {clean_target}
                     
-                    Goal: Generate 4 distinct reply options for EACH of the 4 styles below. That's 16 total replies.
+                    Goal: Generate 4 distinct reply options for EACH of the 4 styles below. That's 24 total replies.
                     
                     Styles to generate:
-                    1. Hài hước & Lầy lội 😂 (Funny & Playful)
-                    2. Ngọt ngào 🍯 (Sweet & Romantic)
-                    3. Táo bạo 🔥 (Bold & Flirty)
-                    4. Mysterious 🌙 (Mysterious & Intriguing)
-                    5. Lãng mạn 🌹 (Romantic & Poetic)
-                    6. Playboy/Playgirl 😏 (Confident & Charming)
-                    7. Lạnh lùng boy/girl 🧊 (Cool & Mysterious)
+                    1. Thả thính 💋 (Pickup lines & Flirty)
+                    2. Hài hước & Lầy lội 😂 (Funny & Playful)
+                    3. Ngọt ngào 🍯 (Sweet & Romantic)
+                    4. Táo bạo 🔥 (Bold & Flirty)
+                    5. Mysterious 🌙 (Mysterious & Intriguing)
+                    6. Lãng mạn 🌹 (Romantic & Poetic)
+                    7. Playboy/Playgirl 😏 (Confident & Charming)
+                    8. Lạnh lùng boy/girl 🧊 (Cool & Mysterious)
                     
                     Each reply should:
                     - Flow naturally from the entire conversation, not just the last message
@@ -615,16 +616,27 @@ if st.session_state.uploaded_file_data is not None:
                     - Match the energy and vibe of the conversation
                     - Be tailored to the partner's apparent personality and interests
                     
+                    ⚠️ GEN Z VIBE CHECK (QUAN TRỌNG):
+                    - Dùng ngôn ngữ Gen Z tự nhiên (teencode nhẹ, slang phổ biến như: ultr, tr, khum, j z tr, vãi, ủa alo, chấn động, slay, keo lì, mlem...)
+                    - KHÔNG dùng văn phong ChatGPT/AI cứng nhắc. Phải giống người thật nhắn tin.
+                    - KHÔNG viết hoa đầu câu nếu không cần thiết (lowercase aesthetic).
+                    - Dùng emoji hợp lý, không spam emoji cũ kỹ (như 😄, 👍). Dùng emoji kiểu Gen Z (💀, 😭, 🤡, 💅, ✨, 🥹).
+                    - Văn phong ngắn gọn, súc tích, không sến súa (trừ khi là style sến).
+                    
                     ⚠️ CRITICAL LANGUAGE RULE - THIS IS MANDATORY:
                     - VIETNAMESE conversation = 100% Vietnamese output. EVERY SINGLE WORD must be in Vietnamese.
                     - ENGLISH conversation = 100% English output. Every word in English.
-                    - DO NOT mix languages.
+                    - DO NOT mix languages (trừ slang tiếng Anh phổ biến).
                     - Use natural slang and texting style that matches the conversation.
                     
                     IMPORTANT: You MUST respond in this EXACT JSON format only, no other text:
                     {{
                         "analysis": "Tóm tắt ngắn gọn cuộc trò chuyện (VIẾT BẰNG NGÔN NGỮ CỦA CUỘC TRÒ CHUYỆN)",
                         "styles": [
+                            {{
+                                "style_name": "Thả thính �",
+                                "replies": ["reply1", "reply2", "reply3", "reply4"]
+                            }},
                             {{
                                 "style_name": "Hài hước & Lầy lội 😂",
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
@@ -638,7 +650,7 @@ if st.session_state.uploaded_file_data is not None:
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
                             }},
                             {{
-                                "style_name": "Mysterious 🌙",
+                                "style_name": "Mysterious �",
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
                             }},
                             {{
@@ -646,7 +658,7 @@ if st.session_state.uploaded_file_data is not None:
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
                             }},
                             {{
-                                "style_name": "Playboy/Playgirl 😏",
+                                "style_name": "Playboy/Playgirl �",
                                 "replies": ["reply1", "reply2", "reply3", "reply4"]
                             }},
                             {{
@@ -683,6 +695,7 @@ if st.session_state.uploaded_file_data is not None:
                                 "Mysterious 🌙": "#6A5ACD",
                                 "Lãng mạn 🌹": "#E91E63",
                                 "Playboy/Playgirl 😏": "#FF1493",
+                                "Thả thính 💋": "#DC143C",
                                 "Lạnh lùng boy/girl 🧊": "#00CED1"
                             }
                             
